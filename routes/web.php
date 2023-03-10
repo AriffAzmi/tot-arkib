@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Lkp\LkpBahagianController;
+use App\Http\Controllers\Lkp\LkpSeksyenController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +20,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::post('/auth/login',[AuthController::class,'login'])->name('check-login');
+Route::post('/auth/logout',[AuthController::class,'logout'])->name('logout');
+
 Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('/booking/{id}/edit', 'BookingController@edit');
+// Auth::routes();
+
+// Route::get('/booking/{id}/edit', 'BookingController@edit');
+Route::resource('lkp-bahagian', LkpBahagianController::class);
+Route::resource('lkp-seksyen', LkpSeksyenController::class);
+Route::resource('pengguna', UserController::class);
